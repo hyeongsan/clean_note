@@ -1,13 +1,308 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300&family=Nanum+Gothic+Coding&family=Yeon+Sung&display=swap');
+
+*{
+  /* font-family: 'Dongle', sans-serif;
+font-family: 'Nanum Gothic Coding', monospace;
+font-family: 'Yeon Sung', cursive; */
+}
+body{
+  background: #000;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.navbar{
+  display: flex;
+  padding:0;  
+}
+
+.navbar .home{
+ 
+  text-decoration: none;
+}
+
+
+.nav-link:focus, .nav-link:hover {
+  color: #fff;
+}
+
+.title{
+  padding: 20px;
+  padding-top: 30px;
+}
+.App{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  border-radius: 10px;
+}
+/* .AppBorder{
+  background: url(/public/img/미.png) no-repeat center/cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  border-radius: 10px;
+  position:relative;
+} */
+.note{
+  border: 1px solid #000;
+  width: 500px;
+  height: 960px;
+  margin: 0 auto;
+  margin-top: 70px;
+  border-radius: 10px;
+}
+.movieBox{
+  overflow: hidden;
+  height: 400px;
+  overflow-y: scroll;
+  width: 430px;
+  /* text-align: center; */
+  margin-bottom: 10px;
+  margin-top: 10px;
+  left: 20px;
+  position: relative;
+}
+/*스크롤바*/
+.movieBox::-webkit-scrollbar { width: 5px; /*스크롤바의 너비*/ }
+.movieBox::-webkit-scrollbar-thumb { background-color: rgba(0, 0, 0, 0.582); /*스크롤바의 색상*/ border-radius: 10px; /*스크롤바 라운드*/}
+.movieBox::-webkit-scrollbar-track { background-color: #eee; /*스크롤바 트랙 색상*/ border-radius: 10px; /*스크롤바 트랙 라운드*/ box-shadow: inset 0px 0px 5px rgba(0,0,0,0.2); /*스크롤바 트랙 안쪽 그림자*/}
+
+/*스크롤바 end*/
+
+.movie{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* border: 1px solid gray; */
+  border-radius: 5px;
+  padding: 5px 10px 10px 10px;
+  margin-bottom: 2px;
+  margin-right: 1px;
+  width: 386px;
+  position: relative;
+  cursor: pointer;
+}
+
+.movie_cont{
+  width: 363px;
+  padding: 9px;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: inset 3px 2px 12px #c9c9c95e, inset -12px -12px 24px #ffffff;
+  border:none;
+  position: relative;
+}
+
+
+.movie .movie-title{
+  flex-grow:1;
+  font-weight: bold;
+  font-size: 20px;
+  width: 345px;
+  word-break: break-all;
+}
+
+.movie .movie-year {
+  /* color:#0a58ca;
+  font-size: 0.8rem; */
+  word-break:break-all;
+  font-size: 19px;
+}
+
+.showPopup{
+  top: 0;
+  left: 0;
+  position: absolute;
+}
+
+.transArea{
+  width: 498px;
+  height: 940px;
+  top: 0;
+  left: 0;
+  background-color: #000000;
+  opacity: 0.2;
+}
+
+.popupCenter{
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.movieForm{
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+}
+.movieTitle{
+  width: 364px;
+  padding: 7px;
+  padding-left: 11px;
+  border:1px solid transparent;
+  margin:5px;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: inset 3px 2px 12px #c9c9c95e, inset -12px -12px 24px #ffffff;
+  display: block;
+}
+.movieText{
+  background: url() no-repeat center/cover;
+  width: 364px;
+  height: 300px;
+  display: block;
+  padding: 10px;
+  box-sizing:border-box;
+  border-radius: 3px;
+  margin:5px;
+  border-radius: 16px;
+    background: #ffffff;
+    box-shadow: inset 3px 2px 12px #c9c9c95e, inset -12px -12px 24px #ffffff;
+  border:none;
+}
+
+.addbtn{
+  margin-bottom:20px;
+  margin: 5px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: inset 3px 2px 12px #c9c9c95e, inset -12px -12px 24px #ffffff;
+  border: none;
+  color: #bbbbbb;
+
+  width: 26px;
+  height: 26px;
+}
+
+.buttonIcon{
+  display: flex;
+  justify-content: space-between;
+  width: 358px;
+}
+
+
+.buttonIcon button{
+  margin-bottom:20px;
+  margin: 5px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: inset 3px 2px 12px #c9c9c95e, inset -12px -12px 24px #ffffff;
+  border: none;
+  color: #bbbbbb;
+  width: 26px;
+  height: 26px;
+  text-align: center;
+}
+
+.buttonIcon button:hover{
+  color: #757575;
+}
+
+.addbtn.pink:hover {
+  background-color:rgb(222 152 152) !important;
+}
+
+.movie_btn {
+  display: flex;
+  /* flex-direction: column; */
+  position: absolute;
+  right: 0;
+  top: 6px;
+}
+
+.movie_btn button{
+  border:none;
+  background-color: transparent;
+  cursor:pointer;
+  padding-top: 4px;
+  padding-right: 16px;
+  color: #bbbbbb;
+}
+/* .movie_btn button:nth-of-type(2){
+  width: 39px;
+} */
+
+.movie_btn button:hover{
+  color: #757575;
+}
+
+.movieAndButton{
+  display: flex;
+}
+
+.null{
+  margin:5px;
+}
+
+.nullText{
+  color:red;
+  font-size: 13px;
+  margin:5px;
+}
+
+.login{
+  color: #fff;
+  margin:20px;  
+  position: relative;  
+  text-decoration: none;
+}
+.loginColor{
+  color:#fff;
+}
+
+.loginForm{
+  background-color: #fff; 
+  width: 300px;
+  height: 300px;
+  text-align: center;  
+  margin:0 auto;
+  position: relative;
+  top: 30%;
+  transform:translateY(-50%); 
+  border-radius: 10px;
+}
+
+.loginInput{  
+  position: absolute;
+  top: 50%;
+  left:50%;
+  transform:translate(-50%,-50%);  
+}
+.loginInput .id{
+  margin:5px;
+}
+.loginInput .pw{
+  margin:5px;
+}
+.loginBtn{
+  position: absolute;  
+  bottom: 10px;
+  transform:translate(-50%,-50%); 
+}
+
+.user{
+  top: 30%;
+  position: relative;
+  left: 25%;
+  color: #fff;
+}
+.navMenu{
+  display: flex;
+}
+.and{
+  font-size: 40px;
+  display: inline-block;
+  color: #fff;
+  margin:5px;
+}
+
+
+/*로딩스피너*/
+.btn-primary{
+  top: 40%;
+    position: relative;
+    left: 35%;
 }
