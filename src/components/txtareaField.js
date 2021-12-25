@@ -4,6 +4,7 @@ const TxtareaField = ({ type, value, placeholder, onChange, errorMessage }) => {
   return (
     <>
       <textarea
+        wrap="hard"
         className="movieText"
         type={type}
         value={value}
