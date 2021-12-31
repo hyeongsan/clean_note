@@ -1,5 +1,5 @@
 {
-  "homepage": "http://hyeongsan.github.io/notenote",
+  "homepage": "https://hyeongsan.github.io/clean_note",
   "name": "prac",
   "version": "0.1.0",
   "private": true,
@@ -22,8 +22,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "npm run build &&gh-pages -d build",
-  "postbuild": "cp build/index.html build/404.html"
+    "deploy": "gh-pages -d build" 
+ 
   },
   "eslintConfig": {
     "extends": [
