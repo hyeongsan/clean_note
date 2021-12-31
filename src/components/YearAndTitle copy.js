@@ -18,21 +18,16 @@ const YearAndTitle = ({
   trashShow,
   putShow,
   addMovie,
-  destination,
 }) => {
   const [yearToggle, setYearToggle] = useState(false);
   const inputRef = useRef();
-  const toggleContent = (e) => {
-    // e.stopImmediatePropagation();
+  const toggleContent = () => {
     setYearToggle(!yearToggle);
   };
 
   const pointerNone = {
     pointerEvents: "none",
     display: "none",
-  };
-  const pointerNone2 = {
-    pointerEvents: "none",
   };
 
   const pointerAuto = {
@@ -132,41 +127,39 @@ const YearAndTitle = ({
         className={movie.checked ? "movieAndButton on" : "movieAndButton"}
         draggable="true"
       >
-        {/* <input
+        <input
           ref={inputRef}
           className={trashShow ? "checkbox on" : "checkbox"}
           type="checkbox"
           onChange={(e) => onChange2(e, movie)}
-        /> */}
+        />
 
-        <div className={pickState === movie.id ? "movie on" : "movie"}>
-          <div className={yearToggle ? "movie_cont press" : "movie_cont"}>
-            <input
-              ref={inputRef}
-              className="checkbox"
-              onChange={(e) => onChange(e, movie)}
-              checked={movie.checked ? true : false}
-              type="checkbox"
-              id="cb1"
-            />
-            <label for="cb1"></label>
+        <input
+          ref={inputRef}
+          className={putShow ? "checkbox on" : "checkbox"}
+          onChange={(e) => onChange(e, movie)}
+          checked={movie.checked ? true : false}
+          type="checkbox"
+        />
+
+        <div
+          className={pickState === movie.id ? "movie on" : "movie"}
+          style={pointerAuto}
+        >
+          <div className="movie_cont">
             <div
               className={yearToggle ? "movie-title break" : "movie-title"}
-              onClick={(e) => toggleContent(e)}
+              onClick={() => toggleContent()}
             >
               {movie.title}
             </div>
-            <span
-              onClick={(e) => toggleContent(e)}
-              className="areaHelper"
-            ></span>
+            <span onClick={() => toggleContent()} className="areaHelper"></span>
 
-            <div
-              className={yearToggle ? "movie-year on" : "movie-year"}
-              onClick={(e) => toggleContent(e)}
-            >
-              {movie.year}
-            </div>
+            {yearToggle ? (
+              <div className="movie-year" onClick={() => toggleContent()}>
+                {movie.year}
+              </div>
+            ) : null}
 
             <div className="movie_btn">
               <button
@@ -174,14 +167,15 @@ const YearAndTitle = ({
                 style={pickNone ? pointerNone : pointerAuto}
               >
                 {/* <i class="fas fa-pencil-alt"></i> */}
-                <i class="fas fa-pencil-alt"></i>
+                수정
               </button>
-              {/* <button
+              <button
                 onClick={() => removeMovie(movie.id)}
                 style={pickNone ? pointerNone : pointerAuto}
               >
+                {/* <i class="fas fa-trash-alt"></i> */}
                 삭제
-              </button> */}
+              </button>
             </div>
           </div>
         </div>

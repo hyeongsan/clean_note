@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MovieForm from "../components/MovieForm";
 import Movie from "../components/movie";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 // import background from "/img/미.png";
 
 const Home = () => {
@@ -23,6 +24,25 @@ const Home = () => {
   const [putShow, setPutShow] = useState(true);
   const [trash, setTrash] = useState(false);
   const [put, setPut] = useState(false);
+  const [formDisplayNone, setFormDisplayNone] = useState(false);
+  const [destination, setDestination] = useState(false);
+
+  //드래그 start
+
+  // const [characters, updateCharacters] = useState();
+  function handleOnDragEnd(result) {
+    if (!result.destination) {
+      return;
+    }
+
+    const items = Array.from(movies);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+
+    setMovies(items);
+    localStorage.setItem("allEntries", JSON.stringify(items));
+  }
+  //드래그 end
 
   useEffect(() => {
     var existingEntries = JSON.parse(localStorage.getItem("allEntries"));
@@ -32,8 +52,17 @@ const Home = () => {
     }
     var a = JSON.parse(localStorage.getItem("allEntries"));
     setMovies(a);
+    // updateCharacters(a);
     console.log(movies);
   }, []);
+
+  useEffect(() => {});
+
+  if (movies) {
+    const movieComponent = document.querySelectorAll(".movie");
+    let picked = null;
+    let pickedIndex = null;
+  }
 
   const addMovie = (existingEntries) => {
     //addMovie실행시 local에 값이 먼저들어가고
@@ -44,6 +73,7 @@ const Home = () => {
     // movies 스테이트가 값에 따라 목록에 뜨도록 되있음. ( 하단에 renderMovies 참조.)
     if (a) {
       setMovies(a);
+      // updateCharacters(a);
     }
   };
 
@@ -131,44 +161,84 @@ const Home = () => {
     setPickNone(true);
   };
 
+  const removeChecked = () => {
+    // console.log("tetet");
+    // setTrash(!trash);
+    // setTrashShow(!trashShow);
+    // setButtonNone(true);
+    setMovies((old) => {
+      const removed = old.filter((m) => !m.checked);
+      localStorage.setItem("allEntries", JSON.stringify(removed));
+      return removed;
+    });
+  };
+
   //여기서 movies 의 state가 있으면 (을 .length ? 로 표현했다.) 맵을 돌려서 Movie컴포넌트에 movie(각 state)로 전달해서
   // Movie컴포넌트에선 받은 movie를 활용해서 사용 ex) movie.title / movie.year
   // 이것들은 결국 밑에 화면에 뜨도론 return 부분에 적어줌 {renderMovies} 이런식으로
-  const renderMovies = movies.length ? ( //숫자가 0이면 false반환함
-    movies.map((movie) => {
-      return (
-        <Movie
-          movie={movie}
-          movies={movies}
-          setMovies={setMovies}
-          key={movie.id}
-          removeMovie={removeMovie}
-          pickMovie={pickMovie}
-          togglePointer={togglePointer}
-          setTogglePointer={setTogglePointer}
-          removePopup={removePopup}
-          pickNone={pickNone}
-          listToggle={listToggle}
-          setListToggle={setListToggle}
-          movies={movies}
-          pickState={pickState}
-          setPickState={setPickState}
-          titleState={titleState}
-          trash={trash}
-          setButtonNone={setButtonNone}
-          setPickNone={setPickNone}
-          put={put}
-          setPut={setPut}
-          buttonNone={buttonNone}
-          putShow={putShow}
-          trashShow={trashShow}
-          addMovie={addMovie}
-        />
-      );
-    })
-  ) : (
-    <span className="null">추가된 내용이 없습니다</span>
-  );
+  const renderMovies = movies.length ? (
+    <DragDropContext onDragEnd={handleOnDragEnd}>
+      <Droppable droppableId="12345678">
+        {(provided) => (
+          <ul
+            className="characters"
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+          >
+            {movies.map((item, index) => {
+              return (
+                <Draggable
+                  key={item.id.toString()}
+                  draggableId={item.id.toString()}
+                  index={index}
+                >
+                  {(provided) => (
+                    <li
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                    >
+                      <Movie
+                        movie={item}
+                        movies={movies}
+                        setMovies={setMovies}
+                        key={item.id}
+                        removeMovie={removeMovie}
+                        pickMovie={pickMovie}
+                        togglePointer={togglePointer}
+                        setTogglePointer={setTogglePointer}
+                        removePopup={removePopup}
+                        pickNone={pickNone}
+                        listToggle={listToggle}
+                        setListToggle={setListToggle}
+                        movies={movies}
+                        pickState={pickState}
+                        setPickState={setPickState}
+                        titleState={titleState}
+                        trash={trash}
+                        setButtonNone={setButtonNone}
+                        setPickNone={setPickNone}
+                        put={put}
+                        setPut={setPut}
+                        buttonNone={buttonNone}
+                        putShow={putShow}
+                        trashShow={trashShow}
+                        addMovie={addMovie}
+                        removeChecked={removeChecked}
+                        destination={destination}
+                      />
+                    </li>
+                  )}
+                </Draggable>
+              );
+            })}
+            {provided.placeholder}
+          </ul>
+        )}
+      </Droppable>
+    </DragDropContext>
+  ) : // <span className="null">추가된 내용이 없습니다</span>
+  null;
 
   function frontRemove(id) {
     setMovies(
@@ -181,11 +251,10 @@ const Home = () => {
   const addText = "+";
   const putText = "+";
   const AppBorder = {
-    // background: "url({background}) no-repeat center/cover",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    background: "#fff",
+    background: "#ebecf0",
     borderRadius: "10px",
     position: "relative",
     width: "460px",
@@ -217,6 +286,9 @@ const Home = () => {
             trashShow={trashShow}
             setPutShow={setPutShow}
             putShow={putShow}
+            removeChecked={removeChecked}
+            formDisplayNone={formDisplayNone}
+            setFormDisplayNone={setFormDisplayNone}
           />
         ) : (
           <MovieForm
@@ -232,9 +304,45 @@ const Home = () => {
             setRemovePopup={setRemovePopup}
             setPickNone={setPickNone}
             setPickState={setPickState}
+            removeChecked={removeChecked}
+            formDisplayNone={formDisplayNone}
+            setFormDisplayNone={setFormDisplayNone}
           />
         )}
-        <div className="movieBox">{renderMovies}</div>
+
+        {/* <DragDropContext onDragEnd={handleOnDragEnd}>
+          <Droppable droppableId="12345678">
+            {(provided) => (
+              <ul
+                className="characters"
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+              >
+                {characters.map(({ id, name, cont }, index) => {
+                  return (
+                    <Draggable key={id} draggableId={id} index={index}>
+                      {(provided) => (
+                        <li
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                        >
+                          <Movie />
+                        </li>
+                      )}
+                    </Draggable>
+                  );
+                })}
+                {provided.placeholder}
+              </ul>
+            )}
+          </Droppable>
+        </DragDropContext> */}
+
+        <div className={formDisplayNone ? "movieBox on" : "movieBox"}>
+          {renderMovies}
+        </div>
+
         {removePopup ? (
           <div className="showPopup">
             <div className="transArea"></div>
@@ -245,7 +353,7 @@ const Home = () => {
             </div>
           </div>
         ) : null}
-        {settingsPopup ? (
+        {/* {settingsPopup ? (
           <div className="showPopup">
             <div className="transArea"></div>
             <div className="popupCenter">
@@ -259,7 +367,7 @@ const Home = () => {
               </ul>
             </div>
           </div>
-        ) : null}
+        ) : null} */}
         {putPopup ? (
           <div className="showPopup">
             <div className="transArea"></div>

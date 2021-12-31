@@ -8,7 +8,8 @@ const MovieForm = (props) => {
   const [movieYear, setMovieYear] = useState("");
   const [TitleError, setTitleError] = useState("");
   const [YearError, setYearError] = useState("");
-  const [formDisplayNone, setFormDisplayNone] = useState(false);
+  const [searchBar, setSearchBar] = useState(false);
+  const [sideBar, setSideBar] = useState(true);
   let titleCheck = true;
 
   useEffect(() => {
@@ -106,7 +107,7 @@ const MovieForm = (props) => {
     }
 
     if (!movieYear) {
-      setYearError("내용을 넣어주세요");
+      // setYearError("내용을 넣어주세요");
       validated = false;
     }
     if (validated) {
@@ -133,28 +134,28 @@ const MovieForm = (props) => {
     boxShadow: "none",
   };
 
-  const settingPopup = () => {
-    props.setSettingsPopup(true);
-  };
+  // const settingPopup = () => {
+  //   props.setSettingsPopup(true);
+  // };
 
   const formFolding = () => {
     resetErrors();
-    setFormDisplayNone(!formDisplayNone);
+    props.setFormDisplayNone(!props.formDisplayNone);
   };
 
-  const toggleFlex = formDisplayNone
+  const toggleFlex = props.formDisplayNone
     ? {
         display: "none",
       }
     : { display: "unset" };
 
-  const arrowRotate = formDisplayNone
-    ? {
-        transform: "rotate(180deg)",
-      }
-    : {
-        transform: "rotate(0deg)",
-      };
+  // const arrowRotate = props.formDisplayNone
+  //   ? {
+  //       transform: "rotate(180deg)",
+  //     }
+  //   : {
+  //       transform: "rotate(0deg)",
+  //     };
 
   const inputFieldValue = (e) => {
     setMovieTitle(e.target.value);
@@ -171,6 +172,20 @@ const MovieForm = (props) => {
   const putClick = () => {
     props.setPut(!props.put);
     props.setPutShow(!props.putShow);
+  };
+
+  const searchClick = () => {
+    props.setButtonNone(false);
+    setSearchBar(true);
+  };
+
+  const resetSearch = () => {
+    props.setButtonNone(true);
+    setSearchBar(false);
+  };
+
+  const sideBarShow = () => {
+    setSideBar(false);
   };
 
   useEffect(() => {
@@ -229,22 +244,14 @@ const MovieForm = (props) => {
             <div className="buttonIcon">
               <button
                 type="button"
-                className={props.buttonNone ? "btnShow" : "btnNone"}
-              >
-                <span>
-                  <i class="fas fa-bars"></i>
-                </span>
-              </button>
-              <button
-                type="button"
                 onClick={formFolding}
-                style={arrowRotate}
-                className={props.buttonNone ? "btnShow" : "btnNone"}
+                className={props.formDisplayNone ? null : "press"}
               >
-                <span>
-                  <i class="fas fa-chevron-up"></i>
+                <span className={props.formDisplayNone ? "original" : "rotate"}>
+                  <i class="fas fa-chevron-down"></i>
                 </span>
               </button>
+
               <button
                 type="submit"
                 className={props.buttonNone ? "addbtn" : "btnNone"}
@@ -256,38 +263,53 @@ const MovieForm = (props) => {
                   </span>
                 </span>
               </button>
-              <button
+              {/* <button
+                onClick={searchClick}
                 type="button"
-                className={props.buttonNone ? "btnShow" : "btnNone"}
-              >
-                <span>
-                  <i class="fas fa-search"></i>
-                </span>
-              </button>
-              <button
-                type="button"
-                onClick={settingPopup}
                 className={props.buttonNone ? "btnShow" : "btnNone"}
               >
                 <span>
                   <i class="fas fa-check"></i>
                 </span>
+              </button> */}
+              {/* {searchBar ? (
+                <>
+                  <div className="searchForm">
+                    <input
+                      type="text"
+                      className="searchInput"
+                      placeholder="내용을 검색해주세요."
+                    />
+                    <button type="button" onClick={resetSearch}>
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
+                </>
+              ) : null} */}
+              <button
+                type="button"
+                // onClick={settingPopup}
+                onClick={props.removeChecked}
+                // className={props.buttonNone ? "btnShow" : "btnNone"}
+              >
+                <span>
+                  <i class="fas fa-trash"></i>
+                </span>
               </button>
-              {props.trashShow ? null : (
-                <button type="button" onClick={trashClick}>
+              {/* {props.trashShow ? null : (
+                <button type="button" onClick={props.removeChecked}>
                   <span>
-                    {/* <i class="far fa-trash-alt"></i> */}
                     <i class="fas fa-trash"></i>
                   </span>
                 </button>
-              )}
-              {props.putShow ? null : (
+              )} */}
+              {/* {props.putShow ? null : (
                 <button type="button" onClick={putClick}>
                   <span>
                     <i class="fas fa-edit"></i>
                   </span>
                 </button>
-              )}
+              )} */}
             </div>
           </form>
         </div>
@@ -311,22 +333,11 @@ const MovieForm = (props) => {
           </div>
 
           <div className="buttonIcon" style={putIconCenter}>
-            {/* <button
-              type="button"
-              onClick={() => {
-                console.log("test!!");
-              }}
-            >
-              <i class="fas fa-chevron-up"></i>
-            </button> */}
             <button type="submit" className="addbtn pink" style={putIcon}>
               <span className="plusIcon">
                 <i class="fas fa-plus"></i>
               </span>
             </button>
-            {/* <button type="button">
-              <i class="fas fa-cog"></i>
-            </button> */}
           </div>
         </form>
       )}

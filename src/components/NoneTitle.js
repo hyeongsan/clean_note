@@ -14,6 +14,7 @@ const NoneTitle = ({
   buttonNone,
   trashShow,
   putShow,
+  setMovies,
 }) => {
   const [yearToggle, setYearToggle] = useState(false);
 
@@ -52,11 +53,10 @@ const NoneTitle = ({
   };
 
   useEffect(() => {
-    var checkbox = document.querySelector("input[type='checkbox']");
-    // checkbox.onchange = (e) =>
-    //   (checkbox.style.textDecorationLine = checkbox.checked
-    //     ? "line-through"
-    //     : "");
+    var checkbox = document.querySelector(
+      "input[type='checkbox']:nth-of-type(1)"
+    );
+
     if (!checkbox.parentNode.classList.contains("on")) {
       checkbox.parentNode.classList.remove("on");
     } else {
@@ -67,32 +67,40 @@ const NoneTitle = ({
     setPickNone(false);
   }, [put]);
 
-  const onChange = (e) => {
-    e.target.parentNode.classList.toggle("on");
+  const onChange = (e, movie) => {
+    setMovies((old) => {
+      const checked = old.map((m) =>
+        m === movie ? { ...movie, checked: e.target.checked } : m
+      );
+      localStorage.setItem("allEntries", JSON.stringify(checked));
+      return checked;
+    });
   };
 
   return (
     <div>
-      <div className="movieAndButton" draggable="true">
-        <input
+      <div
+        className={movie.checked ? "movieAndButton on" : "movieAndButton"}
+        draggable="true"
+      >
+        {/* <input
           className={trashShow ? "checkbox on" : "checkbox"}
           type="checkbox"
-        />
-
-        <input
-          className={putShow ? "checkbox on" : "checkbox"}
-          onChange={onChange}
-          type="checkbox"
-        />
+        /> */}
 
         <div
           className={pickState === movie.id ? "movie on" : "movie"}
           style={pointerAuto}
         >
           <div className="movie_cont">
-            {/* <div className="movie-title" onClick={() => toggleContent()}>
-              {movie.title}
-            </div> */}
+            <input
+              className="checkbox"
+              onChange={(e) => onChange(e, movie)}
+              checked={movie.checked ? true : false}
+              type="checkbox"
+              id="cb1"
+            />
+            <label for="cb1"></label>
             <span onClick={() => toggleContent()} className="areaHelper"></span>
 
             <div
@@ -107,16 +115,14 @@ const NoneTitle = ({
                 onClick={() => pickMovie(movie)}
                 style={pickNone ? pointerNone : pointerAuto}
               >
-                {/* <i class="fas fa-pencil-alt"></i> */}
-                수정
+                <i class="fas fa-pencil-alt"></i>
               </button>
-              <button
+              {/* <button
                 onClick={() => removeMovie(movie.id)}
                 style={pickNone ? pointerNone : pointerAuto}
               >
-                {/* <i class="fas fa-trash-alt"></i> */}
                 삭제
-              </button>
+              </button> */}
             </div>
           </div>
         </div>

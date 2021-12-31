@@ -1,8 +1,10 @@
 import Home from "./pages/home.js";
 
-export default [
+const routes = [
   {
     path: "/",
     component: Home,
   },
 ];
+
+export default routes;

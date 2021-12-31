@@ -11,7 +11,7 @@ ul,li{
   padding: 0;
 }
 body{
-  background: #000;
+  background-color: rgb(235, 236, 240);
 }
 
 .navbar{
@@ -37,20 +37,12 @@ body{
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #fff;
+  background: "rgb(224, 233, 237, 0.37)";
   border-radius: 10px;
 }
-/* .AppBorder{
-  background: url(/public/img/미.png) no-repeat center/cover;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: #fff;
-  border-radius: 10px;
-  position:relative;
-} */
+
 .note{
-  border: 1px solid #000;
+  /* border: 1px solid #000; */
   width: 500px;
   height: 960px;
   margin: 0 auto;
@@ -59,34 +51,43 @@ body{
 }
 .movieBox{
   overflow: hidden;
-  height: 400px;
-  overflow-y: scroll;
-  width: 454px;
-  /* text-align: center; */
-  margin-bottom: 10px;
-  margin-top: 10px;
-  left: -10px;
-  position: relative;
+  height: 590px;
+  overflow-y: auto;
+    width: 403px;
+    /* text-align: center; */
+    margin-bottom: 10px;
+    margin-top: 23px;
+    left: 5px;
+    position: relative;
+    padding-top: 5px;
+}
+
+.movieBox.on{
+  height: 810px;
 }
 /*스크롤바*/
 .movieBox::-webkit-scrollbar { width: 5px; /*스크롤바의 너비*/ }
 .movieBox::-webkit-scrollbar-thumb { background-color: rgba(0, 0, 0, 0.582); /*스크롤바의 색상*/ border-radius: 10px; /*스크롤바 라운드*/}
 .movieBox::-webkit-scrollbar-track { background-color: #eee; /*스크롤바 트랙 색상*/ border-radius: 10px; /*스크롤바 트랙 라운드*/ box-shadow: inset 0px 0px 5px rgba(0,0,0,0.2); /*스크롤바 트랙 안쪽 그림자*/}
 
+
+.movieText::-webkit-scrollbar { width: 5px; /*스크롤바의 너비*/ }
+.movieText::-webkit-scrollbar-thumb { background-color: rgba(0, 0, 0, 0.582); /*스크롤바의 색상*/ border-radius: 10px; /*스크롤바 라운드*/}
+.movieText::-webkit-scrollbar-track { background-color: #eee; /*스크롤바 트랙 색상*/ border-radius: 10px; /*스크롤바 트랙 라운드*/ box-shadow: inset 0px 0px 5px rgba(0,0,0,0.2); /*스크롤바 트랙 안쪽 그림자*/}
+
 /*스크롤바 end*/
 
 .movie{
-    /* align-items: center; */
-    justify-content: space-between;
-    /* border: 1px solid gray; */
-    border-radius: 5px;
-    padding: 8px 8px 8px 8px;
-    /* margin-bottom: 2px; */
-    margin-right: 1px;
-    width: 386px;
-    position: relative;
-    cursor: pointer;
-    left: 43px;
+  justify-content: space-between;
+  /* border: 1px solid gray; */
+  border-radius: 5px;
+  padding: 8px 8px 8px 8px;
+  /* margin-bottom: 2px; */
+  margin-right: 1px;
+  width: 386px;
+  position: relative;
+  cursor: pointer;
+  left: 3px;
 }
 .movie.on{
   display: flex;
@@ -94,13 +95,13 @@ body{
   justify-content: space-between;
   /* border: 1px solid gray; */
   border-radius: 5px;
-  padding: 5px 10px 10px 10px;    padding: 8px 8px 8px 8px;
+  padding: 8px 8px 8px 8px;
   /* margin-bottom: 2px; */
   margin-right: 1px;
   width: 386px;
   position: relative;
   cursor: pointer;
-  left: 43px;
+  left: 3px;
   opacity: 0.4;
 }
 
@@ -108,10 +109,18 @@ body{
   width: 363px;
   padding: 8px;
   border-radius: 16px;
-  background: #ffffff;
-  box-shadow: inset 1px 1px 12px #c9c9c95e, inset 0px -12px 24px #ffffff;
-  border: none;
+ 
+background: #ebecf0;
+box-shadow:  5px 5px 10px #d1d2d6,
+             -5px -5px 10px #ffffff;
   position: relative;
+  color: #818181;
+}
+
+.movie_cont.press{
+background: #ebecf0;
+box-shadow: inset 5px 5px 10px #d1d2d6,
+            inset -5px -5px 10px #ffffff;
 }
 
 /* .movie.on .movie_cont{
@@ -123,22 +132,25 @@ body{
 .areaHelper{
   background: transparent;
   display: inline-block;
-  width: 296px;
+  width: 302px;
   height: 38px;
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 4px;
+  left: 31px;
 }
 .movie .movie-title{
   flex-grow:1;
   font-weight: bold;
   font-size: 15px;
-  width: 287px;
+  width: 322px;
   word-break: break-all;
-
+  display: inline;
   white-space: nowrap; 
   overflow: hidden;
   text-overflow: ellipsis;
+  display: inline-block;
+  
+  padding-left: 26px;
 }
 
 .movie .movie-title.break{
@@ -164,17 +176,23 @@ body{
   word-break:break-all;
   font-size: 14px;
   white-space: pre-wrap;
+  display: none
+}
+
+.movie .movie-year.on{
+  display:inline-block;
 }
 
 .movie .only-year{
-  word-break:break-all;
+  word-break: break-all;
   font-size: 14px;
   white-space: pre-wrap;
   width: 289px;
-
-  white-space: nowrap; 
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  display: inline-block;
+  padding-left: 23px;
 }
 
 .movie .only-year.break{
@@ -218,25 +236,25 @@ body{
   border:1px solid transparent;
   margin:5px;
   border-radius: 16px;
-  background: #ffffff;
-  box-shadow:inset 1px 1px 12px #c9c9c95e, inset 0px -12px 24px #ffffff;
-  display: block;
+  background: #ebecf0;
+  box-shadow: 5px 5px 10px #d1d2d6, -5px -5px 10px #ffffff;
+  
+
 }
 .movieText{
-  background: url() no-repeat center/cover;
   width: 364px;
-  height: 300px;
+  height: 120px;
   display: block;
   padding: 10px;
-  box-sizing:border-box;
+  box-sizing: border-box;
   border-radius: 3px;
-  margin:5px;
+  margin: 5px;
   border-radius: 16px;
-    background: #ffffff;
-    /* box-shadow: inset 3px 2px 12px #c9c9c95e, inset -12px -12px 24px #ffffff; */
-    box-shadow:inset 1px 1px 12px #c9c9c95e, inset 0px -12px 24px #ffffff;
-
-  border:none;
+  background: #ebecf0;
+  box-shadow: 5px 5px 10px #d1d2d6, -5px -5px 10px #ffffff;
+  border: none;
+  position: relative;
+  TOP: 10px;
 }
 
 .addbtn{
@@ -244,10 +262,8 @@ body{
   margin: 5px;
   border-radius: 50%;
   background: #ffffff;
-  box-shadow:inset 1px 1px 12px #c9c9c95e, inset 0px -12px 24px #ffffff;
   border: none;
   color: #bbbbbb;
-
   width: 26px;
   height: 26px;
 }
@@ -256,6 +272,8 @@ body{
   display: flex;
   justify-content: space-between;
   width: 358px;
+  top: 10px;
+  position: relative;
 }
 
 
@@ -263,8 +281,8 @@ body{
   margin-bottom:20px;
   margin: 5px;
   border-radius: 50%;
-  background: #ffffff;
-  box-shadow: inset 3px 2px 12px #c9c9c95e, inset -12px -12px 24px #ffffff;
+  background: #ebecf0;
+  box-shadow: 5px 5px 10px #d1d2d6, -5px -5px 10px #ffffff;
   border: none;
   color: #bbbbbb;
   width: 26px;
@@ -300,10 +318,15 @@ body{
     padding: 1;
     /* padding-right: 16px; */
     color: #bbbbbb;
+    transform: scale(1.2);
 }
-/* .movie_btn button:nth-of-type(2){
-  width: 39px;
-} */
+
+
+.btnpress{
+background: #ebecf0 !important;
+box-shadow: inset 5px 5px 10px #d1d2d6,
+            inset -5px -5px 10px #ffffff !important;
+}
 
 .movie_btn button:hover{
   color: #757575;
@@ -314,7 +337,8 @@ body{
   align-items: center;
 }
 
-.movieAndButton.on{
+.movieAndButton.on .movie-year,
+.movieAndButton.on .movie-title{
   text-decoration: line-through;
 }
 
@@ -332,6 +356,42 @@ body{
   border: none;
   transform: scale(0.8);
   display: none;
+}
+
+input[type="checkbox"]{
+  position: absolute;
+  /* transform: translate(2px, 4px); */
+  width: 15px;
+  height: 14px;
+  opacity: 0;
+  cursor: pointer;
+  position: absolute;
+  top: 12px;
+  left: 12px;
+}
+input[type="checkbox"] + label{
+  display: inline-block;
+  width: 17px;
+  height: 17px;
+  border: 2px solid #c5c5c5;
+  position: relative;
+  border-radius: 5px;
+  pointer-events: none;
+  position: absolute;
+  top: 11px;
+  left: 10px;
+
+}
+input[id="cb1"]:checked + label::after{
+  content: "\2713";
+  font-size: 25px;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  position: absolute;
+  left: -7px;
+  top: -17px;
+  pointer-events: none;
 }
 
 .movieToggleArea{
@@ -450,10 +510,13 @@ body{
 
 .btnShow{
   opacity: 1;
+  pointer-events: auto;
+
 }
 
 .btnNone{
   opacity: 0 !important;
+  pointer-events: none;
 }
 
 .checkcheck{
@@ -467,4 +530,39 @@ text-decoration:line-through;
 
 .checkbox.on{
   display: none;
+}
+
+.searchForm{
+  display: flex;
+  position: absolute;
+}
+
+.searchInput{
+  width: 330px;
+  border-radius: 9px;
+    background: #ffffff;
+    border: 1px solid #cecece;
+}
+
+.sideModal{
+  background: gray;
+  width: 359px;
+  height: 960px;
+  position: absolute;
+  top: 0px;
+  left: -363px;
+  z-index: 1;
+  opacity: 0.5;
+  transition: left 300ms ease-in;
+}
+
+.sideModal.on{
+  left:0;
+}
+
+.original{display: inline-block;}
+.rotate{transform:rotate(180deg);display: inline-block;}
+
+.press{
+  box-shadow: inset 5px 5px 10px #d1d2d6, inset -5px -5px 10px #ffffff !important;
 }

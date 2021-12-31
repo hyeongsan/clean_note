@@ -5,15 +5,17 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 function App() {
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <div className="note">
-        {/* <Navbar /> */}
         <Switch>
           {routes.map((route) => {
             return (
-              <Route key={route.path} path={route.path} exact>
-                <route.component />
-              </Route>
+              <Route
+                exact
+                key={route.path}
+                path={route.path}
+                component={route.component}
+              />
             );
           })}
         </Switch>

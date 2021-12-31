@@ -20,6 +20,8 @@ function Movie({
   putShow,
   trashShow,
   addMovie,
+  removeChecked,
+  destination,
 }) {
   return (
     <>
@@ -42,10 +44,13 @@ function Movie({
           putShow={putShow}
           trashShow={trashShow}
           addMovie={addMovie}
+          removeChecked={removeChecked}
+          destination={destination}
         />
       ) : (
         <NoneTitle
           movie={movie}
+          setMovies={setMovies}
           removeMovie={removeMovie}
           pickMovie={pickMovie}
           pickNone={pickNone}
